@@ -13,9 +13,9 @@ const config = {
   theme: {
     extend: {
       colors: {
-        white: "#01A47F",
-        dark: "#01A47F",
-        default: "#01A47F",
+        white: "#ffffff",
+        dark: "#000000",
+        default: "#f5f5f5",
         primary: "#01A47F",
         secondary: "#7D7D7D",
         warning: "#FAE33A",
