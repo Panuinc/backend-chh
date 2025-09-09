@@ -1,10 +1,13 @@
-import Link from 'next/link'
-import React from 'react'
+"use client";
+
+import { Button } from "@heroui/react";
+import Link from "next/link";
+import React from "react";
 
 export default function page() {
   return (
-    <div>
+    <Button color="primary">
       <Link href="/user">User</Link>
-    </div>
-  )
+    </Button>
+  );
 }
