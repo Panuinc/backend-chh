@@ -13,14 +13,15 @@ const config = {
   theme: {
     extend: {
       colors: {
-        white: "#ffffff",
-        dark: "#000000",
+        white: "#FFFFFF",
+        dark: "#262626",
         default: "#E5E5E5",
-        primary: "#01A47F",
-        secondary: "#7D7D7D",
-        warning: "#FAE33A",
-        danger: "#E35D12",
-        success: "#01A47F",
+        primary: "#7F95E4",
+        secondary: "#FCB8D9",
+        info: "#FF8017",
+        warning: "#FBD160",
+        danger: "#F9447F",
+        success: "#1AC1B9",
       },
       fontFamily: {
         sans: ["var(--font-sans)"],

@@ -45,25 +45,25 @@ const icons = [
     Icon: Star,
     pos: "top-10 right-1/3",
     rotate: -360,
-    color: "text-yellow-400",
+    color: "text-warning",
   },
   {
     Icon: ThumbsUp,
     pos: "bottom-1/3 left-20",
     rotate: 360,
-    color: "text-blue-500",
+    color: "text-primary",
   },
   {
     Icon: User,
     pos: "top-1/4 left-10",
     rotate: -360,
-    color: "text-purple-500",
+    color: "text-danger",
   },
   {
     Icon: MessageCircle,
     pos: "bottom-10 right-1/4",
     rotate: 360,
-    color: "text-pink-500",
+    color: "text-info",
   },
 ];
 
@@ -78,7 +78,7 @@ export default function UIIndex() {
         {icons.map(({ Icon, pos, rotate, color }, i) => (
           <motion.div
             key={i}
-            className={`absolute ${pos} flex items-center justify-center p-2 rounded-full`}
+            className={`absolute ${pos} lg:flex hidden items-center justify-center p-2 rounded-full`}
             animate={{ rotate }}
             transition={{
               duration: 20 + i * 5,
@@ -90,10 +90,10 @@ export default function UIIndex() {
           </motion.div>
         ))}
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full p-2 gap-2">
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-3xl font-semibold">
+          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-center text-3xl font-semibold">
             Powering Industrial Connectivity
           </div>
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-secondary text-sm">
+          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-center text-sm">
             CHH Industry API — Connect, control, and manage your factory data
             for smarter production and warehouse operations.
           </div>
@@ -106,7 +106,7 @@ export default function UIIndex() {
           </div>
         </div>
         <div className="absolute bottom-10 flex items-center justify-center w-full h-fit p-2 gap-2">
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-xl font-semibold">
+          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-center text-lg font-semibold">
             Unifying industrial processes in one platform.
           </div>
         </div>
