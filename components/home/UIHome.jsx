@@ -18,10 +18,10 @@ export default function UIHome() {
             API : User
           </Link>
           <Link
-            href="/customer"
+            href="/customers"
             className="flex items-center justify-center min-w-48 min-h-28 p-2 gap-2 border-1 border-default bg-white/50 rounded-xl shadow-lg"
           >
-            API : Customer
+            API : customers
           </Link>
         </div>
       </div>

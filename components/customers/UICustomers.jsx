@@ -10,11 +10,11 @@ function ApiBlock({ title, children }) {
   );
 }
 
-export default function customerTestPage() {
+export default function customersTestPage() {
   const [response, setResponse] = useState(null);
   const [status, setStatus] = useState(null);
 
-  const [customerId, setCustomerId] = useState("");
+  const [customersId, setcustomersId] = useState("");
   const [displayName, setDisplayName] = useState("");
 
   async function safeFetch(url, options = {}) {
@@ -31,10 +31,10 @@ export default function customerTestPage() {
   }
 
   const api = {
-    getcustomer: () => safeFetch("/api/customer"),
-    getCustomerById: () => safeFetch(`/api/customer/${customerId}`),
-    getCustomerByName: () =>
-      safeFetch(`/api/customer?displayName=${encodeURIComponent(displayName)}`),
+    getcustomers: () => safeFetch("/api/customers"),
+    getcustomersById: () => safeFetch(`/api/customers/${customersId}`),
+    getcustomersByName: () =>
+      safeFetch(`/api/customers?displayName=${encodeURIComponent(displayName)}`),
   };
 
   async function run(fn) {
@@ -43,15 +43,15 @@ export default function customerTestPage() {
 
   return (
     <div className="p-10 bg-gray-50 min-h-screen space-y-8">
-      <h1 className="text-3xl font-bold">Test customer API</h1>
+      <h1 className="text-3xl font-bold">Test customers API</h1>
       <p className="text-gray-600 mb-8">
-        กดปุ่มด้านล่างเพื่อทดสอบ customer API (Business Central)
+        กดปุ่มด้านล่างเพื่อทดสอบ customers API (Business Central)
       </p>
 
       {/* GET ALL */}
-      <ApiBlock title="GET /api/customer">
+      <ApiBlock title="GET /api/customers">
         <button
-          onClick={() => run(api.getcustomer)}
+          onClick={() => run(api.getcustomers)}
           className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
         >
           Try it
@@ -59,16 +59,16 @@ export default function customerTestPage() {
       </ApiBlock>
 
       {/* GET BY ID */}
-      <ApiBlock title="GET /api/customer/{customerId}">
+      <ApiBlock title="GET /api/customers/{customersId}">
         <input
           type="text"
-          placeholder="customerId (GUID)"
+          placeholder="customersId (GUID)"
           className="border p-2 rounded w-full"
-          value={customerId}
-          onChange={(e) => setCustomerId(e.target.value)}
+          value={customersId}
+          onChange={(e) => setcustomersId(e.target.value)}
         />
         <button
-          onClick={() => run(api.getCustomerById)}
+          onClick={() => run(api.getcustomersById)}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Try it
@@ -76,7 +76,7 @@ export default function customerTestPage() {
       </ApiBlock>
 
       {/* GET BY DISPLAY NAME */}
-      <ApiBlock title="GET /api/customer?displayName=...">
+      <ApiBlock title="GET /api/customers?displayName=...">
         <input
           type="text"
           placeholder="displayName"
@@ -85,7 +85,7 @@ export default function customerTestPage() {
           onChange={(e) => setDisplayName(e.target.value)}
         />
         <button
-          onClick={() => run(api.getCustomerByName)}
+          onClick={() => run(api.getcustomersByName)}
           className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
         >
           Try it

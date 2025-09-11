@@ -6,28 +6,28 @@ import "@/lib/fonts/THSarabunNew"
 
 export default function CoverPage() {
   const [query, setQuery] = useState("")
-  const [customer, setcustomer] = useState([])
-  const [selectedCustomer, setSelectedCustomer] = useState(null)
+  const [customers, setcustomers] = useState([])
+  const [selectedcustomers, setSelectedcustomers] = useState(null)
   const [recipient, setRecipient] = useState("")
   const [docTitle, setDocTitle] = useState("")
 
   const handleSearch = async (value) => {
     setQuery(value)
     if (value.length < 2) {
-      setcustomer([])
+      setcustomers([])
       return
     }
     try {
-      const res = await fetch(`/api/customer?displayName=${encodeURIComponent(value)}`)
+      const res = await fetch(`/api/customers?displayName=${encodeURIComponent(value)}`)
       const data = await res.json()
-      setcustomer(data.value || [])
+      setcustomers(data.value || [])
     } catch (err) {
       console.error("Search failed", err)
     }
   }
 
   const handleGeneratePDF = () => {
-    if (!selectedCustomer) return
+    if (!selectedcustomers) return
     const doc = new jsPDF({
       orientation: "landscape",
       unit: "cm",
@@ -48,10 +48,10 @@ export default function CoverPage() {
     const xRight = pageWidth - 10
 
     const info = [
-      `บริษัท: ${selectedCustomer.displayName || ""}`,
-      `${selectedCustomer.addressLine1 || ""}`,
-      selectedCustomer.addressLine2 || "",
-      `โทร: ${selectedCustomer.phoneNumber || ""}`,
+      `บริษัท: ${selectedcustomers.displayName || ""}`,
+      `${selectedcustomers.addressLine1 || ""}`,
+      selectedcustomers.addressLine2 || "",
+      `โทร: ${selectedcustomers.phoneNumber || ""}`,
     ]
     if (recipient) info.push(`เรียน: ${recipient}`)
     if (docTitle) info.push(docTitle)
@@ -64,7 +64,7 @@ export default function CoverPage() {
       }
     })
 
-    const safeName = (selectedCustomer.displayName || "customer").replace(
+    const safeName = (selectedcustomers.displayName || "customers").replace(
       /[^\u0E00-\u0E7Fa-zA-Z0-9-_]/g,
       "_"
     )
@@ -81,14 +81,14 @@ export default function CoverPage() {
         onChange={(e) => handleSearch(e.target.value)}
         className="w-full border p-2 rounded"
       />
-      {customer.length > 0 && (
+      {customers.length > 0 && (
         <ul className="border rounded max-h-60 overflow-y-auto">
-          {customer.map((c) => (
+          {customers.map((c) => (
             <li
               key={c.id}
               onClick={() => {
-                setSelectedCustomer({ ...c })
-                setcustomer([])
+                setSelectedcustomers({ ...c })
+                setcustomers([])
                 setQuery(c.displayName)
               }}
               className="p-2 hover:bg-gray-100 cursor-pointer"
@@ -98,34 +98,34 @@ export default function CoverPage() {
           ))}
         </ul>
       )}
-      {selectedCustomer && (
+      {selectedcustomers && (
         <div className="border p-4 rounded bg-gray-50 space-y-2">
           <p>
-            <b>บริษัท:</b> {selectedCustomer.displayName}
+            <b>บริษัท:</b> {selectedcustomers.displayName}
           </p>
           <label className="block">
             <b>ที่อยู่:</b>
             <input
               type="text"
-              value={selectedCustomer.addressLine1 || ""}
+              value={selectedcustomers.addressLine1 || ""}
               onChange={(e) =>
-                setSelectedCustomer({
-                  ...selectedCustomer,
+                setSelectedcustomers({
+                  ...selectedcustomers,
                   addressLine1: e.target.value,
                 })
               }
               className="w-full border p-1 rounded mt-1"
             />
           </label>
-          {selectedCustomer.addressLine2 && (
+          {selectedcustomers.addressLine2 && (
             <label className="block">
               <b>ที่อยู่บรรทัด 2:</b>
               <input
                 type="text"
-                value={selectedCustomer.addressLine2 || ""}
+                value={selectedcustomers.addressLine2 || ""}
                 onChange={(e) =>
-                  setSelectedCustomer({
-                    ...selectedCustomer,
+                  setSelectedcustomers({
+                    ...selectedcustomers,
                     addressLine2: e.target.value,
                   })
                 }
@@ -134,10 +134,10 @@ export default function CoverPage() {
             </label>
           )}
           <p>
-            <b>โทร:</b> {selectedCustomer.phoneNumber}
+            <b>โทร:</b> {selectedcustomers.phoneNumber}
           </p>
           <p>
-            <b>เลขผู้เสียภาษี:</b> {selectedCustomer.taxRegistrationNumber}
+            <b>เลขผู้เสียภาษี:</b> {selectedcustomers.taxRegistrationNumber}
           </p>
           <label className="block">
             <b>เรียน (ผู้รับ):</b>
@@ -163,7 +163,7 @@ export default function CoverPage() {
       )}
       <button
         onClick={handleGeneratePDF}
-        disabled={!selectedCustomer}
+        disabled={!selectedcustomers}
         className="bg-blue-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
       >
         สร้าง PDF
