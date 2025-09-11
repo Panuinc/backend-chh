@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
+import Link from "next/link";
 import {
   Sparkles,
   Heart,
@@ -101,11 +102,14 @@ export default function UIIndex() {
             your factory data for smarter production and warehouse operations.
           </div>
           <div className="flex flex-row items-center justify-center w-full h-fit p-2 gap-2">
-            <div className="flex items-center justify-center h-fit p-2 gap-2">
+            <Link
+              href="/login"
+              className="flex items-center justify-center w-fit h-fit p-2 gap-2"
+            >
               <Button color="primary" radius="sm">
                 Get Started
               </Button>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="absolute bottom-10 flex items-center justify-center w-full h-fit p-2 gap-2">
