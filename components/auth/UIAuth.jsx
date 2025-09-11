@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Input } from "@heroui/react";
+import Link from "next/link";
 import React from "react";
 
 export default function UIAuth() {
@@ -39,11 +40,11 @@ export default function UIAuth() {
             // onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
+        <Link href="/home" className="flex items-center justify-center w-full h-fit p-2 gap-2">
           <Button color="primary" className="w-full">
             Signin
           </Button>
-        </div>
+        </Link>
       </div>
     </>
   );
