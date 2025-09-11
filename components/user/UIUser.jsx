@@ -307,7 +307,7 @@ export default function UIUser() {
           <Home />
         </Link>
         <div className="flex items-center justify-start w-full h-full p-2 gap-2 text-xl font-semibold">
-          API Documents : user
+          API Documents : User
         </div>
       </div>
 
