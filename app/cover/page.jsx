@@ -6,7 +6,7 @@ import "@/lib/fonts/THSarabunNew"
 
 export default function CoverPage() {
   const [query, setQuery] = useState("")
-  const [customers, setCustomers] = useState([])
+  const [customer, setcustomer] = useState([])
   const [selectedCustomer, setSelectedCustomer] = useState(null)
   const [recipient, setRecipient] = useState("")
   const [docTitle, setDocTitle] = useState("")
@@ -14,13 +14,13 @@ export default function CoverPage() {
   const handleSearch = async (value) => {
     setQuery(value)
     if (value.length < 2) {
-      setCustomers([])
+      setcustomer([])
       return
     }
     try {
-      const res = await fetch(`/api/customers?displayName=${encodeURIComponent(value)}`)
+      const res = await fetch(`/api/customer?displayName=${encodeURIComponent(value)}`)
       const data = await res.json()
-      setCustomers(data.value || [])
+      setcustomer(data.value || [])
     } catch (err) {
       console.error("Search failed", err)
     }
@@ -81,14 +81,14 @@ export default function CoverPage() {
         onChange={(e) => handleSearch(e.target.value)}
         className="w-full border p-2 rounded"
       />
-      {customers.length > 0 && (
+      {customer.length > 0 && (
         <ul className="border rounded max-h-60 overflow-y-auto">
-          {customers.map((c) => (
+          {customer.map((c) => (
             <li
               key={c.id}
               onClick={() => {
                 setSelectedCustomer({ ...c })
-                setCustomers([])
+                setcustomer([])
                 setQuery(c.displayName)
               }}
               className="p-2 hover:bg-gray-100 cursor-pointer"

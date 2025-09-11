@@ -6,17 +6,17 @@ export async function GET(request) {
   const displayName = searchParams.get("displayName");
 
   try {
-    let url = "/customers";
+    let url = "/customer";
 
     if (displayName) {
       url += `?$filter=contains(displayName,'${displayName}')`;
     }
 
-    const customers = await bcFetch(url);
-    return NextResponse.json(customers);
+    const customer = await bcFetch(url);
+    return NextResponse.json(customer);
   } catch (err) {
     return NextResponse.json(
-      { error: "Failed to fetch customers", details: err.message },
+      { error: "Failed to fetch customer", details: err.message },
       { status: 500 }
     );
   }

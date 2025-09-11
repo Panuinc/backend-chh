@@ -10,7 +10,7 @@ function ApiBlock({ title, children }) {
   );
 }
 
-export default function CustomersTestPage() {
+export default function customerTestPage() {
   const [response, setResponse] = useState(null);
   const [status, setStatus] = useState(null);
 
@@ -31,10 +31,10 @@ export default function CustomersTestPage() {
   }
 
   const api = {
-    getCustomers: () => safeFetch("/api/customers"),
-    getCustomerById: () => safeFetch(`/api/customers/${customerId}`),
+    getcustomer: () => safeFetch("/api/customer"),
+    getCustomerById: () => safeFetch(`/api/customer/${customerId}`),
     getCustomerByName: () =>
-      safeFetch(`/api/customers?displayName=${encodeURIComponent(displayName)}`),
+      safeFetch(`/api/customer?displayName=${encodeURIComponent(displayName)}`),
   };
 
   async function run(fn) {
@@ -43,15 +43,15 @@ export default function CustomersTestPage() {
 
   return (
     <div className="p-10 bg-gray-50 min-h-screen space-y-8">
-      <h1 className="text-3xl font-bold">Test Customers API</h1>
+      <h1 className="text-3xl font-bold">Test customer API</h1>
       <p className="text-gray-600 mb-8">
-        กดปุ่มด้านล่างเพื่อทดสอบ Customers API (Business Central)
+        กดปุ่มด้านล่างเพื่อทดสอบ customer API (Business Central)
       </p>
 
       {/* GET ALL */}
-      <ApiBlock title="GET /api/customers">
+      <ApiBlock title="GET /api/customer">
         <button
-          onClick={() => run(api.getCustomers)}
+          onClick={() => run(api.getcustomer)}
           className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
         >
           Try it
@@ -59,7 +59,7 @@ export default function CustomersTestPage() {
       </ApiBlock>
 
       {/* GET BY ID */}
-      <ApiBlock title="GET /api/customers/{customerId}">
+      <ApiBlock title="GET /api/customer/{customerId}">
         <input
           type="text"
           placeholder="customerId (GUID)"
@@ -76,7 +76,7 @@ export default function CustomersTestPage() {
       </ApiBlock>
 
       {/* GET BY DISPLAY NAME */}
-      <ApiBlock title="GET /api/customers?displayName=...">
+      <ApiBlock title="GET /api/customer?displayName=...">
         <input
           type="text"
           placeholder="displayName"

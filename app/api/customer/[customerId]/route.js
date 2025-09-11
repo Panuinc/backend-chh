@@ -5,7 +5,7 @@ export async function GET(request, context) {
   const { customerId } = context.params;
 
   try {
-    const customer = await bcFetch(`/customers(${customerId})`);
+    const customer = await bcFetch(`/customer(${customerId})`);
 
     if (!customer) {
       return NextResponse.json({ error: "Customer not found" }, { status: 404 });

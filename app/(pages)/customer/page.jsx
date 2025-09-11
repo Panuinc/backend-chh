@@ -1,10 +1,10 @@
-import UICustomers from "@/components/customers/UICustomers";
+import UIcustomer from "@/components/customer/UICustomer";
 import React from "react";
 
 export default function page() {
   return (
     <>
-      <UICustomers />
+      <UIcustomer />
     </>
   );
 }
