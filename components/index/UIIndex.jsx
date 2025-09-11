@@ -103,12 +103,10 @@ export default function UIIndex() {
           </div>
           <div className="flex flex-row items-center justify-center w-full h-fit p-2 gap-2">
             <Link
-              href="/login"
+              href="/auth"
               className="flex items-center justify-center w-fit h-fit p-2 gap-2"
             >
-              <Button color="primary" radius="sm">
-                Get Started
-              </Button>
+              <Button color="primary">Get Started</Button>
             </Link>
           </div>
         </div>
