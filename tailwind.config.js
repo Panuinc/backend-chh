@@ -15,11 +15,12 @@ const config = {
       colors: {
         white: "#ffffff",
         dark: "#000000",
-        default: "#f5f5f5",
+        default: "#E5E5E5",
         primary: "#01A47F",
         secondary: "#7D7D7D",
         warning: "#FAE33A",
         danger: "#E35D12",
+        success: "#01A47F",
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
