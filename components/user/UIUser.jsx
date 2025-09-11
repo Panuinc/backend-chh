@@ -5,6 +5,72 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "@heroui/react";
 
+const userFieldMeta = {
+  userId: { type: "String", location: "path" },
+  userEmail: { type: "String", location: "formData" },
+  userPassword: { type: "String", location: "formData" },
+  userFirstName: { type: "String", location: "formData" },
+  userLastName: { type: "String", location: "formData" },
+};
+
+function formatSwaggerStyle(obj, meta) {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => formatSwaggerStyle(item, meta));
+  }
+  if (!obj || typeof obj !== "object") return obj;
+
+  const formatted = {};
+  for (const [key, val] of Object.entries(obj)) {
+    const { type } = meta[key] || { type: typeof val };
+    const label = `${key} ${type}`;
+    formatted[label] = val;
+  }
+  return formatted;
+}
+
+const colorClasses = {
+  primary: "bg-primary",
+  success: "bg-success",
+  warning: "bg-warning",
+  danger: "bg-danger",
+};
+
+function ColorJson({ data, indent = 2 }) {
+  if (Array.isArray(data)) {
+    return (
+      <div style={{ marginLeft: indent }}>
+        [
+        {data.map((v, i) => (
+          <div key={i}>
+            <ColorJson data={v} indent={indent + 2} />
+          </div>
+        ))}
+        ]
+      </div>
+    );
+  }
+
+  if (typeof data === "object" && data !== null) {
+    return (
+      <div style={{ marginLeft: indent }}>
+        {"{"}
+        {Object.entries(data).map(([k, v], i) => (
+          <div key={i} style={{ marginLeft: 16 }}>
+            <span style={{ color: "#FCB8D9" }}>"{k}"</span>
+            <span style={{ color: "#ffffff" }}> : </span>
+            <span style={{ color: "lightgreen" }}>
+              <ColorJson data={v} indent={indent + 2} />
+            </span>
+          </div>
+        ))}
+        {"}"}
+      </div>
+    );
+  }
+
+  return <span style={{ color: "lightgreen" }}>{String(data)}</span>;
+}
+
 const apiItems = [
   { method: "Get", label: "User All", color: "primary", key: "getUsers" },
   { method: "Get", label: "User By ID", color: "primary", key: "getUserById" },
@@ -187,10 +253,7 @@ export default function UIUser() {
               className="border p-2 rounded w-full"
               value={updateUser.userFirstName}
               onChange={(e) =>
-                setUpdateUser({
-                  ...updateUser,
-                  userFirstName: e.target.value,
-                })
+                setUpdateUser({ ...updateUser, userFirstName: e.target.value })
               }
             />
             <input
@@ -258,7 +321,9 @@ export default function UIUser() {
               >
                 <div className="flex flex-row items-center justify-center w-full h-full p-2 gap-2">
                   <div
-                    className={`flex items-center justify-start w-24 h-full p-2 gap-2 text-white text-md font-semibold rounded-xl border-1 border-${item.color} bg-${item.color}/75`}
+                    className={`flex items-center justify-start w-24 h-full p-2 gap-2 text-white text-md font-semibold rounded-xl border-1 border-${
+                      item.color
+                    } ${colorClasses[item.color]}`}
                   >
                     {item.method}
                   </div>
@@ -285,10 +350,12 @@ export default function UIUser() {
 
         <div className="flex flex-col items-start justify-start w-full h-full p-2 gap-2 bg-dark text-secondary rounded-xl overflow-auto">
           <pre>Status: {status ?? "—"}</pre>
-          <pre>
-            {response
-              ? JSON.stringify(response, null, 2)
-              : "👉 Run an API to see response"}
+          <pre className="w-full overflow-auto">
+            {response ? (
+              <ColorJson data={formatSwaggerStyle(response, userFieldMeta)} />
+            ) : (
+              "👉 Run an API to see response"
+            )}
           </pre>
         </div>
       </div>
