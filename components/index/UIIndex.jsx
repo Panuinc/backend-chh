@@ -75,6 +75,9 @@ export default function UIIndex() {
         <div className="absolute flex items-center justify-center w-[1000px] h-[1000px] border-1 border-default rounded-full" />
         <div className="absolute flex items-center justify-center w-[1200px] h-[1200px] border-1 border-default rounded-full" />
         <div className="absolute flex items-center justify-center w-[1400px] h-[1400px] border-1 border-default rounded-full" />
+        <div className="absolute flex items-center justify-center w-[1600px] h-[1600px] border-1 border-default rounded-full" />
+        <div className="absolute flex items-center justify-center w-[1800px] h-[1800px] border-1 border-default rounded-full" />
+
         {icons.map(({ Icon, pos, rotate, color }, i) => (
           <motion.div
             key={i}
@@ -94,8 +97,8 @@ export default function UIIndex() {
             Powering Industrial Connectivity
           </div>
           <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-center text-sm">
-            CHH Industry API — Connect, control, and manage your factory data
-            for smarter production and warehouse operations.
+            <strong>CHH Industry API</strong> — Connect, control, and manage
+            your factory data for smarter production and warehouse operations.
           </div>
           <div className="flex flex-row items-center justify-center w-full h-fit p-2 gap-2">
             <div className="flex items-center justify-center h-fit p-2 gap-2">
