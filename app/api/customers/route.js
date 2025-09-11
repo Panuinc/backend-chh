@@ -6,14 +6,13 @@ export async function GET(request) {
   const displayName = searchParams.get("displayName");
 
   try {
+    let url = "/customers";
+
     if (displayName) {
-      const customers = await bcFetch(
-        `/customers?$filter=contains(displayName,'${displayName}')`
-      );
-      return NextResponse.json(customers);
+      url += `?$filter=contains(displayName,'${displayName}')`;
     }
 
-    const customers = await bcFetch("/customers");
+    const customers = await bcFetch(url);
     return NextResponse.json(customers);
   } catch (err) {
     return NextResponse.json(

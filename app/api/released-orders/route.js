@@ -6,7 +6,7 @@ export async function GET(request) {
   const orderNo = searchParams.get("No");
 
   try {
-    let url = `/ODataV4/Company('${process.env.BC_COMPANY_NAME}')/Released_Production_Order_Excel`;
+    let url = `/ODataV4/Released_Production_Order_Excel`;
 
     if (orderNo) {
       url += `?$filter=No eq '${orderNo}'`;

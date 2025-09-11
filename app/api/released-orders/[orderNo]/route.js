@@ -5,8 +5,7 @@ export async function GET(request, context) {
   const { orderNo } = context.params;
 
   try {
-    const url = `/ODataV4/Company('${process.env.BC_COMPANY_NAME}')/Released_Production_Order_Excel?$filter=No eq '${orderNo}'`;
-
+    const url = `/ODataV4/Released_Production_Order_Excel?$filter=No eq '${orderNo}'`;
     const orders = await bcFetch(url);
 
     if (!orders?.value || orders.value.length === 0) {
