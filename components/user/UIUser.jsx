@@ -3,24 +3,22 @@
 import { Home, SquareMinus } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Button } from "@heroui/react";
+import { Button, Input } from "@heroui/react";
 
-const userFieldMeta = {
-  userId: { type: "String" },
-  userEmail: { type: "String" },
-  userPassword: { type: "String" },
-  userFirstName: { type: "String" },
-  userLastName: { type: "String" },
-};
-
-function formatSwaggerStyle(obj, meta) {
-  if (Array.isArray(obj))
-    return obj.map((item) => formatSwaggerStyle(item, meta));
+function formatSwaggerStyle(obj) {
+  if (Array.isArray(obj)) return obj.map((item) => formatSwaggerStyle(item));
   if (!obj || typeof obj !== "object") return obj;
+
   const formatted = {};
   for (const [key, val] of Object.entries(obj)) {
-    const { type } = meta[key] || { type: typeof val };
-    formatted[`${key} ${type}`] = val;
+    const type = Array.isArray(val)
+      ? "Array"
+      : val === null
+      ? "Null"
+      : typeof val === "object"
+      ? "Object"
+      : typeof val;
+    formatted[`${key} ${type}`] = formatSwaggerStyle(val);
   }
   return formatted;
 }
@@ -139,11 +137,15 @@ export default function UIUser() {
 
   function renderInputs(fields, state) {
     return fields.map((field) => (
-      <input
+      <Input
         key={field}
+        name={field}
         type={field.toLowerCase().includes("password") ? "password" : "text"}
+        label={field}
+        labelPlacement="outside"
         placeholder={field}
-        className="border p-2 rounded w-full"
+        variant="bordered"
+        isRequired
         value={state.form[field]}
         onChange={state.handleChange(field)}
       />
@@ -165,9 +167,14 @@ export default function UIUser() {
       case "getUserById":
         return (
           <>
-            <input
-              className="border p-2 rounded w-full"
+            <Input
+              name="userId"
+              type="text"
+              label="userId"
+              labelPlacement="outside"
               placeholder="userId"
+              variant="bordered"
+              isRequired
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
@@ -199,9 +206,14 @@ export default function UIUser() {
       case "updateUser":
         return (
           <>
-            <input
+            <Input
+              name="userId"
+              type="text"
+              label="userId"
+              labelPlacement="outside"
               placeholder="userId"
-              className="border p-2 rounded w-full"
+              variant="bordered"
+              isRequired
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
@@ -221,9 +233,14 @@ export default function UIUser() {
       case "deleteUser":
         return (
           <>
-            <input
+            <Input
+              name="userId"
+              type="text"
+              label="userId"
+              labelPlacement="outside"
               placeholder="userId"
-              className="border p-2 rounded w-full"
+              variant="bordered"
+              isRequired
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
@@ -294,7 +311,7 @@ export default function UIUser() {
           <pre>Status: {status ?? "—"}</pre>
           <pre className="w-full overflow-auto">
             {response ? (
-              <ColorJson data={formatSwaggerStyle(response, userFieldMeta)} />
+              <ColorJson data={formatSwaggerStyle(response)} />
             ) : (
               "👉 Run an API to see response"
             )}
