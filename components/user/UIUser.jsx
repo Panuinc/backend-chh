@@ -6,34 +6,24 @@ import React, { useState } from "react";
 import { Button } from "@heroui/react";
 
 const userFieldMeta = {
-  userId: { type: "String", location: "path" },
-  userEmail: { type: "String", location: "formData" },
-  userPassword: { type: "String", location: "formData" },
-  userFirstName: { type: "String", location: "formData" },
-  userLastName: { type: "String", location: "formData" },
+  userId: { type: "String" },
+  userEmail: { type: "String" },
+  userPassword: { type: "String" },
+  userFirstName: { type: "String" },
+  userLastName: { type: "String" },
 };
 
 function formatSwaggerStyle(obj, meta) {
-  if (Array.isArray(obj)) {
+  if (Array.isArray(obj))
     return obj.map((item) => formatSwaggerStyle(item, meta));
-  }
   if (!obj || typeof obj !== "object") return obj;
-
   const formatted = {};
   for (const [key, val] of Object.entries(obj)) {
     const { type } = meta[key] || { type: typeof val };
-    const label = `${key} ${type}`;
-    formatted[label] = val;
+    formatted[`${key} ${type}`] = val;
   }
   return formatted;
 }
-
-const colorClasses = {
-  primary: "bg-primary",
-  success: "bg-success",
-  warning: "bg-warning",
-  danger: "bg-danger",
-};
 
 function ColorJson({ data, indent = 2 }) {
   if (Array.isArray(data)) {
@@ -49,7 +39,6 @@ function ColorJson({ data, indent = 2 }) {
       </div>
     );
   }
-
   if (typeof data === "object" && data !== null) {
     return (
       <div style={{ marginLeft: indent }}>
@@ -67,7 +56,6 @@ function ColorJson({ data, indent = 2 }) {
       </div>
     );
   }
-
   return <span style={{ color: "lightgreen" }}>{String(data)}</span>;
 }
 
@@ -90,19 +78,26 @@ const apiItems = [
   },
 ];
 
+function useFormState(initial) {
+  const [form, setForm] = useState(initial);
+  const handleChange = (field) => (e) =>
+    setForm({ ...form, [field]: e.target.value });
+  return { form, setForm, handleChange };
+}
+
 export default function UIUser() {
   const [expanded, setExpanded] = useState(null);
   const [response, setResponse] = useState(null);
   const [status, setStatus] = useState(null);
 
   const [userId, setUserId] = useState("");
-  const [newUser, setNewUser] = useState({
+  const newUser = useFormState({
     userEmail: "",
     userPassword: "",
     userFirstName: "",
     userLastName: "",
   });
-  const [updateUser, setUpdateUser] = useState({
+  const updateUser = useFormState({
     userEmail: "",
     userPassword: "",
     userFirstName: "",
@@ -126,21 +121,34 @@ export default function UIUser() {
 
   const api = {
     getUsers: () => safeFetch("/api/users"),
+    getUserById: () => safeFetch(`/api/users/${userId}`),
     createUser: () =>
       safeFetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
+        body: JSON.stringify(newUser.form),
       }),
-    getUserById: () => safeFetch(`/api/users/${userId}`),
     updateUser: () =>
       safeFetch(`/api/users/${userId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updateUser),
+        body: JSON.stringify(updateUser.form),
       }),
     deleteUser: () => safeFetch(`/api/users/${userId}`, { method: "DELETE" }),
   };
+
+  function renderInputs(fields, state) {
+    return fields.map((field) => (
+      <input
+        key={field}
+        type={field.toLowerCase().includes("password") ? "password" : "text"}
+        placeholder={field}
+        className="border p-2 rounded w-full"
+        value={state.form[field]}
+        onChange={state.handleChange(field)}
+      />
+    ));
+  }
 
   function renderForm(key) {
     switch (key) {
@@ -175,42 +183,10 @@ export default function UIUser() {
       case "createUser":
         return (
           <>
-            <input
-              type="email"
-              placeholder="userEmail"
-              className="border p-2 rounded w-full"
-              value={newUser.userEmail}
-              onChange={(e) =>
-                setNewUser({ ...newUser, userEmail: e.target.value })
-              }
-            />
-            <input
-              type="password"
-              placeholder="userPassword"
-              className="border p-2 rounded w-full"
-              value={newUser.userPassword}
-              onChange={(e) =>
-                setNewUser({ ...newUser, userPassword: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="userFirstName"
-              className="border p-2 rounded w-full"
-              value={newUser.userFirstName}
-              onChange={(e) =>
-                setNewUser({ ...newUser, userFirstName: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="userLastName"
-              className="border p-2 rounded w-full"
-              value={newUser.userLastName}
-              onChange={(e) =>
-                setNewUser({ ...newUser, userLastName: e.target.value })
-              }
-            />
+            {renderInputs(
+              ["userEmail", "userPassword", "userFirstName", "userLastName"],
+              newUser
+            )}
             <Button
               color="success"
               className="text-white font-semibold"
@@ -229,42 +205,10 @@ export default function UIUser() {
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
-            <input
-              type="email"
-              placeholder="userEmail"
-              className="border p-2 rounded w-full"
-              value={updateUser.userEmail}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, userEmail: e.target.value })
-              }
-            />
-            <input
-              type="password"
-              placeholder="userPassword"
-              className="border p-2 rounded w-full"
-              value={updateUser.userPassword}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, userPassword: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="userFirstName"
-              className="border p-2 rounded w-full"
-              value={updateUser.userFirstName}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, userFirstName: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="userLastName"
-              className="border p-2 rounded w-full"
-              value={updateUser.userLastName}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, userLastName: e.target.value })
-              }
-            />
+            {renderInputs(
+              ["userEmail", "userPassword", "userFirstName", "userLastName"],
+              updateUser
+            )}
             <Button
               color="warning"
               className="text-white font-semibold"
@@ -321,9 +265,7 @@ export default function UIUser() {
               >
                 <div className="flex flex-row items-center justify-center w-full h-full p-2 gap-2">
                   <div
-                    className={`flex items-center justify-start w-24 h-full p-2 gap-2 text-white text-md font-semibold rounded-xl border-1 border-${
-                      item.color
-                    } ${colorClasses[item.color]}`}
+                    className={`flex items-center justify-start w-24 h-full p-2 gap-2 text-white text-md font-semibold rounded-xl border-1 border-${item.color} bg-${item.color}`}
                   >
                     {item.method}
                   </div>
