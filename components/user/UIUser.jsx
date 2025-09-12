@@ -1,9 +1,9 @@
 "use client";
 
-import { Home, SquareMinus } from "lucide-react";
-import Link from "next/link";
+import { SquareMinus } from "lucide-react";
 import React, { useState } from "react";
 import { Button, Input } from "@heroui/react";
+import UIHeader from "../header/UIHeader";
 
 function formatSwaggerStyle(obj) {
   if (Array.isArray(obj)) return obj.map((item) => formatSwaggerStyle(item));
@@ -43,8 +43,8 @@ function ColorJson({ data, indent = 2 }) {
         {"{"}
         {Object.entries(data).map(([k, v], i) => (
           <div key={i} style={{ marginLeft: 16 }}>
-            <span style={{ color: "#FCB8D9" }}>"{k}"</span>
-            <span style={{ color: "#ffffff" }}> : </span>
+            <span style={{ color: "#FFFFFF" }}>"{k}"</span>
+            <span style={{ color: "#FFFFFF" }}> : </span>
             <span style={{ color: "lightgreen" }}>
               <ColorJson data={v} indent={indent + 2} />
             </span>
@@ -83,7 +83,7 @@ function useFormState(initial) {
   return { form, setForm, handleChange };
 }
 
-export default function UIUser() {
+export default function UIUser({ HeaderText }) {
   const [expanded, setExpanded] = useState(null);
   const [response, setResponse] = useState(null);
   const [status, setStatus] = useState(null);
@@ -260,54 +260,41 @@ export default function UIUser() {
 
   return (
     <div className="flex flex-col items-center justify-start w-full h-full gap-2">
-      <div className="flex items-center justify-center w-full h-fit p-2 gap-2 border-b-1 border-default">
-        <Link
-          href="/home"
-          className="flex items-center justify-center h-full p-2 gap-2"
-        >
-          <Home />
-        </Link>
-        <div className="flex items-center justify-start w-full h-full p-2 gap-2 text-xl font-semibold">
-          API Documents : User
-        </div>
-      </div>
-
+      <UIHeader text={HeaderText} />
       <div className="flex flex-col lg:flex-row items-start justify-start w-full h-full p-2 gap-2 overflow-auto">
         <div className="flex flex-col items-center justify-start w-full h-full gap-2 overflow-auto">
-          <div className="flex flex-col items-center justify-center w-full h-fit gap-2">
-            {apiItems.map((item, idx) => (
-              <div
-                key={idx}
-                className={`flex flex-col w-full gap-2 rounded-xl border-1 border-${item.color}`}
-              >
-                <div className="flex flex-row items-center justify-center w-full h-full p-2 gap-2">
-                  <div
-                    className={`flex items-center justify-start w-24 h-full p-2 gap-2 text-white text-md font-semibold rounded-xl border-1 border-${item.color} bg-${item.color}`}
-                  >
-                    {item.method}
-                  </div>
-                  <div className="flex items-center justify-start w-full h-full p-2 gap-2">
-                    {item.label}
-                  </div>
-                  <div
-                    className="flex items-center justify-center h-full p-2 gap-2 cursor-pointer"
-                    onClick={() => setExpanded(expanded === idx ? null : idx)}
-                  >
-                    <SquareMinus />
-                  </div>
+          {apiItems.map((item, idx) => (
+            <div
+              key={idx}
+              className={`flex flex-col w-full p-2 gap-2 rounded-xl border-1 border-${item.color}`}
+            >
+              <div className="flex flex-row items-center justify-center w-full h-full gap-2">
+                <div
+                  className={`flex items-center justify-start w-24 h-full p-2 gap-2 text-white text-md font-semibold rounded-xl border-1 border-${item.color} bg-${item.color}`}
+                >
+                  {item.method}
                 </div>
-
-                {expanded === idx && (
-                  <div className="flex flex-col items-end justify-start w-full h-fit p-2 gap-2">
-                    {renderForm(item.key)}
-                  </div>
-                )}
+                <div className="flex items-center justify-start w-full h-full p-2 gap-2">
+                  {item.label}
+                </div>
+                <div
+                  className="flex items-center justify-center h-full p-2 gap-2 cursor-pointer"
+                  onClick={() => setExpanded(expanded === idx ? null : idx)}
+                >
+                  <SquareMinus />
+                </div>
               </div>
-            ))}
-          </div>
+
+              {expanded === idx && (
+                <div className="flex flex-col items-end justify-start w-full h-fit p-2 gap-2">
+                  {renderForm(item.key)}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
-        <div className="flex flex-col items-start justify-start w-full h-full p-2 gap-2 bg-dark text-secondary rounded-xl overflow-auto">
+        <div className="flex flex-col items-start justify-start w-full h-full p-2 gap-2 text-white bg-dark rounded-xl overflow-auto">
           <pre>Status: {status ?? "—"}</pre>
           <pre className="w-full overflow-auto">
             {response ? (
