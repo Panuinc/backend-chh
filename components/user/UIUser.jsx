@@ -151,7 +151,7 @@ export default function UIUser() {
             className="text-white font-semibold"
             onPress={api.getUsers}
           >
-            TEST
+            Test
           </Button>
         );
       case "getUserById":
@@ -168,7 +168,7 @@ export default function UIUser() {
               className="text-white font-semibold"
               onPress={api.getUserById}
             >
-              TEST
+              Test
             </Button>
           </>
         );
@@ -216,7 +216,7 @@ export default function UIUser() {
               className="text-white font-semibold"
               onPress={api.createUser}
             >
-              TEST
+              Test
             </Button>
           </>
         );
@@ -270,7 +270,7 @@ export default function UIUser() {
               className="text-white font-semibold"
               onPress={api.updateUser}
             >
-              TEST
+              Test
             </Button>
           </>
         );
@@ -288,7 +288,7 @@ export default function UIUser() {
               className="text-white font-semibold"
               onPress={api.deleteUser}
             >
-              TEST
+              Test
             </Button>
           </>
         );
