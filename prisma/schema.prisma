@@ -11,6 +11,6 @@ model User {
   userId        String @id @default(cuid())
   userEmail     String @unique
   userPassword  String
-  userFirstName String
-  userLastName  String
+  userFirstname String
+  userLastname  String
 }

@@ -70,14 +70,14 @@ export default function User() {
   const newUser = useFormState({
     userEmail: "",
     userPassword: "",
-    userFirstName: "",
-    userLastName: "",
+    userFirstname: "",
+    userLastname: "",
   });
   const updateUser = useFormState({
     userEmail: "",
     userPassword: "",
-    userFirstName: "",
-    userLastName: "",
+    userFirstname: "",
+    userLastname: "",
   });
 
   async function safeFetch(url, options = {}) {
@@ -138,7 +138,7 @@ export default function User() {
       label: "User Create",
       color: "success",
       key: "createUser",
-      fields: ["userEmail", "userPassword", "userFirstName", "userLastName"],
+      fields: ["userEmail", "userPassword", "userFirstname", "userLastname"],
       formState: newUser,
     },
     {
@@ -146,7 +146,7 @@ export default function User() {
       label: "User Update",
       color: "warning",
       key: "updateUser",
-      fields: ["userEmail", "userPassword", "userFirstName", "userLastName"],
+      fields: ["userEmail", "userPassword", "userFirstname", "userLastname"],
       formState: updateUser,
     },
   ];

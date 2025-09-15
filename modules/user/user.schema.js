@@ -14,8 +14,8 @@ export const userPostSchema = z.object({
     6,
     "Password must be at least 6 characters"
   ),
-  userFirstName: preprocessString("Please provide first name"),
-  userLastName: preprocessString("Please provide last name"),
+  userFirstname: preprocessString("Please provide first name"),
+  userLastname: preprocessString("Please provide last name"),
 });
 
 export const userPutSchema = z.object({
@@ -27,8 +27,8 @@ export const userPutSchema = z.object({
     6,
     "Password must be at least 6 characters"
   ),
-  userFirstName: preprocessStringOptional("Please provide first name"),
-  userLastName: preprocessStringOptional("Please provide last name"),
+  userFirstname: preprocessStringOptional("Please provide first name"),
+  userLastname: preprocessStringOptional("Please provide last name"),
 });
 
 export const formatUserData = (users) =>
