@@ -3,6 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, context) {
   const { userId } = await context.params;
+
+  if (!userId) {
+    return NextResponse.json(
+      { error: "Missing userId in request" },
+      { status: 400 }
+    );
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: { userId },
@@ -38,22 +46,6 @@ export async function PUT(request, context) {
   } catch (err) {
     return NextResponse.json(
       { error: "Failed to update user", details: err.message },
-      { status: 400 }
-    );
-  }
-}
-
-export async function DELETE(request, context) {
-  const { userId } = await context.params;
-  try {
-    await prisma.user.delete({
-      where: { userId },
-    });
-
-    return NextResponse.json({ message: "User deleted" });
-  } catch (err) {
-    return NextResponse.json(
-      { error: "Failed to delete user", details: err.message },
       { status: 400 }
     );
   }

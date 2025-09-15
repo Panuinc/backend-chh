@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button, Input } from "@heroui/react";
 import UIUser from "@/components/user/UIUser";
 
 function formatSwaggerStyle(obj) {
@@ -55,25 +54,6 @@ function ColorJson({ data, indent = 2 }) {
   return <span style={{ color: "lightgreen" }}>{String(data)}</span>;
 }
 
-const apiItems = [
-  { method: "Get", label: "User All", color: "primary", key: "getUsers" },
-  { method: "Get", label: "User By ID", color: "primary", key: "getUserById" },
-  {
-    method: "Get",
-    label: "User By Name",
-    color: "primary",
-    key: "getUserByName",
-  },
-  { method: "Post", label: "User Create", color: "success", key: "createUser" },
-  { method: "Put", label: "User Update", color: "warning", key: "updateUser" },
-  {
-    method: "Delete",
-    label: "User Delete",
-    color: "danger",
-    key: "deleteUser",
-  },
-];
-
 function useFormState(initial) {
   const [form, setForm] = useState(initial);
   const handleChange = (field) => (e) =>
@@ -117,144 +97,59 @@ export default function User() {
 
   const api = {
     getUsers: () => safeFetch("/api/users"),
-    getUserById: () => safeFetch(`/api/users/${userId}`),
+    getUserById: () => {
+      if (!userId || userId.trim() === "") {
+        setStatus(400);
+        setResponse({ error: "Missing userId" });
+        return;
+      }
+      return safeFetch(`/api/users/${userId}`);
+    },
     createUser: () =>
       safeFetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser.form),
       }),
-    updateUser: () =>
-      safeFetch(`/api/users/${userId}`, {
+    updateUser: () => {
+      if (!userId || userId.trim() === "") {
+        setStatus(400);
+        setResponse({ error: "Missing userId" });
+        return;
+      }
+      return safeFetch(`/api/users/${userId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateUser.form),
-      }),
-    deleteUser: () => safeFetch(`/api/users/${userId}`, { method: "DELETE" }),
+      });
+    },
   };
 
-  function renderInputs(fields, state) {
-    return fields.map((field) => (
-      <Input
-        key={field}
-        name={field}
-        type={field.toLowerCase().includes("password") ? "password" : "text"}
-        label={field}
-        labelPlacement="outside"
-        placeholder={field}
-        variant="bordered"
-        isRequired
-        value={state.form[field]}
-        onChange={state.handleChange(field)}
-      />
-    ));
-  }
-
-  function renderForm(key) {
-    switch (key) {
-      case "getUsers":
-        return (
-          <Button
-            color="primary"
-            className="text-white font-semibold"
-            onPress={api.getUsers}
-          >
-            Test
-          </Button>
-        );
-      case "getUserById":
-        return (
-          <>
-            <Input
-              name="userId"
-              type="text"
-              label="userId"
-              labelPlacement="outside"
-              placeholder="userId"
-              variant="bordered"
-              isRequired
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <Button
-              color="primary"
-              className="text-white font-semibold"
-              onPress={api.getUserById}
-            >
-              Test
-            </Button>
-          </>
-        );
-      case "createUser":
-        return (
-          <>
-            {renderInputs(
-              ["userEmail", "userPassword", "userFirstName", "userLastName"],
-              newUser
-            )}
-            <Button
-              color="success"
-              className="text-white font-semibold"
-              onPress={api.createUser}
-            >
-              Test
-            </Button>
-          </>
-        );
-      case "updateUser":
-        return (
-          <>
-            <Input
-              name="userId"
-              type="text"
-              label="userId"
-              labelPlacement="outside"
-              placeholder="userId"
-              variant="bordered"
-              isRequired
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            {renderInputs(
-              ["userEmail", "userPassword", "userFirstName", "userLastName"],
-              updateUser
-            )}
-            <Button
-              color="warning"
-              className="text-white font-semibold"
-              onPress={api.updateUser}
-            >
-              Test
-            </Button>
-          </>
-        );
-      case "deleteUser":
-        return (
-          <>
-            <Input
-              name="userId"
-              type="text"
-              label="userId"
-              labelPlacement="outside"
-              placeholder="userId"
-              variant="bordered"
-              isRequired
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <Button
-              color="danger"
-              className="text-white font-semibold"
-              onPress={api.deleteUser}
-            >
-              Test
-            </Button>
-          </>
-        );
-      default:
-        return null;
-    }
-  }
+  const apiItems = [
+    { method: "Get", label: "User All", color: "primary", key: "getUsers" },
+    {
+      method: "Get",
+      label: "User By ID",
+      color: "primary",
+      key: "getUserById",
+    },
+    {
+      method: "Post",
+      label: "User Create",
+      color: "success",
+      key: "createUser",
+      fields: ["userEmail", "userPassword", "userFirstName", "userLastName"],
+      formState: newUser,
+    },
+    {
+      method: "Put",
+      label: "User Update",
+      color: "warning",
+      key: "updateUser",
+      fields: ["userEmail", "userPassword", "userFirstName", "userLastName"],
+      formState: updateUser,
+    },
+  ];
 
   return (
     <UIUser
@@ -262,11 +157,13 @@ export default function User() {
       apiItems={apiItems}
       expanded={expanded}
       setExpanded={setExpanded}
-      renderForm={renderForm}
       response={response}
       status={status}
       formatSwaggerStyle={formatSwaggerStyle}
       ColorJson={ColorJson}
+      userId={userId}
+      setUserId={setUserId}
+      api={api}
     />
   );
 }
