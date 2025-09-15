@@ -1,19 +1,17 @@
 import { NextResponse } from "next/server";
 import { bcFetch } from "@/lib/bcClient";
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const orderNo = searchParams.get("No");
-
+export async function GET() {
   try {
-    let url = `/ODataV4/Released_Production_Order_Excel`;
-
-    if (orderNo) {
-      url += `?$filter=No eq '${orderNo}'`;
-    }
+    const url = `/ODataV4/Released_Production_Order_Excel`;
 
     const orders = await bcFetch(url);
-    return NextResponse.json(orders);
+
+    if (!orders?.value || orders.value.length === 0) {
+      return NextResponse.json({ error: "No orders found" }, { status: 404 });
+    }
+
+    return NextResponse.json(orders.value);
   } catch (err) {
     return NextResponse.json(
       { error: "Failed to fetch released orders", details: err.message },
