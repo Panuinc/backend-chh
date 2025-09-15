@@ -83,8 +83,13 @@ export default function User() {
   async function safeFetch(url, options = {}) {
     try {
       const res = await fetch(url, options);
-      const text = await res.text();
-      const data = text ? JSON.parse(text) : {};
+      let data = {};
+      try {
+        const text = await res.text();
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        data = {};
+      }
       setStatus(res.status);
       setResponse(
         res.ok ? data : { error: `HTTP ${res.status}`, details: data }
@@ -103,8 +108,9 @@ export default function User() {
         setResponse({ error: "Missing userId" });
         return;
       }
-      return safeFetch(`/api/users/${userId}`);
+      return safeFetch(`/api/users/${Number(userId)}`);
     },
+
     createUser: () =>
       safeFetch("/api/users", {
         method: "POST",
@@ -117,7 +123,7 @@ export default function User() {
         setResponse({ error: "Missing userId" });
         return;
       }
-      return safeFetch(`/api/users/${userId}`, {
+      return safeFetch(`/api/users/${Number(userId)}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateUser.form),
