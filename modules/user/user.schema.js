@@ -1,16 +1,35 @@
 import { z } from "zod";
+import {
+  preprocessString,
+  preprocessStringOptional,
+  preprocessInt,
+  formatData,
+} from "@/lib/zodSchema";
 
 export const userPostSchema = z.object({
-  userEmail: z.string().email(),
-  userPassword: z.string().min(6),
-  userFirstName: z.string(),
-  userLastName: z.string(),
+  userEmail: preprocessString("Please provide a valid email").email(
+    "Invalid email format"
+  ),
+  userPassword: preprocessString("Please provide a password").min(
+    6,
+    "Password must be at least 6 characters"
+  ),
+  userFirstName: preprocessString("Please provide first name"),
+  userLastName: preprocessString("Please provide last name"),
 });
 
 export const userPutSchema = z.object({
-  userId: z.string().optional(),
-  userEmail: z.string().email().optional(),
-  userPassword: z.string().min(6).optional(),
-  userFirstName: z.string().optional(),
-  userLastName: z.string().optional(),
+  userId: preprocessStringOptional("User ID must be a string"),
+  userEmail: preprocessStringOptional("Please provide a valid email").email(
+    "Invalid email format"
+  ),
+  userPassword: preprocessStringOptional("Please provide a password").min(
+    6,
+    "Password must be at least 6 characters"
+  ),
+  userFirstName: preprocessStringOptional("Please provide first name"),
+  userLastName: preprocessStringOptional("Please provide last name"),
 });
+
+export const formatUserData = (users) =>
+  formatData(users, [], ["userCreatedAt", "userUpdatedAt"]);
