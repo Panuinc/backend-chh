@@ -82,7 +82,14 @@ export default function User() {
 
   async function safeFetch(url, options = {}) {
     try {
-      const res = await fetch(url, options);
+      const res = await fetch(url, {
+        ...options,
+        headers: {
+          ...(options.headers || {}),
+          "Content-Type": "application/json",
+          "secret-token": process.env.NEXT_PUBLIC_SECRET_TOKEN || "Develop", // ใช้ env
+        },
+      });
       let data = {};
       try {
         const text = await res.text();
@@ -110,11 +117,9 @@ export default function User() {
       }
       return safeFetch(`/api/users/${Number(userId)}`);
     },
-
     createUser: () =>
       safeFetch("/api/users", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser.form),
       }),
     updateUser: () => {
@@ -125,7 +130,6 @@ export default function User() {
       }
       return safeFetch(`/api/users/${Number(userId)}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateUser.form),
       });
     },

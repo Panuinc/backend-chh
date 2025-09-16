@@ -1,0 +1,91 @@
+2025-09-16 08:44:24 [info]: 📡 Incoming request {
+  "ip": "::1"
+}
+2025-09-16 08:44:24 [warn]: ⛔ Unauthorized request: invalid or missing secret-token {
+  "token": null
+}
+2025-09-16 08:44:24 [warn]: 🚫 Unauthorized access attempt 
+2025-09-16 08:46:48 [info]: 📡 Incoming request {
+  "ip": "::1"
+}
+2025-09-16 08:46:48 [info]: ✅ Secret token verified 
+2025-09-16 08:46:48 [info]: ✅ Rate limit OK {
+  "ip": "::1"
+}
+2025-09-16 08:46:48 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-16 08:46:48 [info]: Secret token verified 
+2025-09-16 08:46:48 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-16 08:46:48 [info]: Fetching all users {
+  "action": "getAllUser",
+  "page": 1,
+  "limit": 1000000
+}
+2025-09-16 08:46:49 [error]: 🔥 Failed to retrieve users
+PrismaClientValidationError: 
+Invalid `10)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$prisma$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].user.findMany()` invocation in
+E:\backend-chh\.next\server\chunks\[root-of-the-server]__1b61228d._.js:292:164
+
+  289 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$prisma$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/prisma.js [app-route] (ecmascript)");
+  290 ;
+  291 const UserRepository = {
+→ 292     getAll: (skip = 0, take = 10)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$prisma$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].user.findMany({
+            skip: 0,
+            take: 1000000,
+            orderBy: {
+              userCreateAt: "asc",
+              ~~~~~~~~~~~~
+          ?   userId?: SortOrder,
+          ?   userEmail?: SortOrder,
+          ?   userPassword?: SortOrder,
+          ?   userFirstname?: SortOrder,
+          ?   userLastname?: SortOrder
+            },
+            include: {
+              createdBy: {
+                select: {
+                  userFirstName: true,
+                  userLastName: true
+                }
+              },
+              updatedBy: {
+                select: {
+                  userFirstName: true,
+                  userLastName: true
+                }
+              }
+            }
+          })
+
+Unknown argument `userCreateAt`. Available options are marked with ?.
+    at _n (E:\backend-chh\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at ei.handleRequestError (E:\backend-chh\node_modules\@prisma\client\runtime\library.js:121:6926)
+    at ei.handleAndLogRequestError (E:\backend-chh\node_modules\@prisma\client\runtime\library.js:121:6608)
+    at ei.request (E:\backend-chh\node_modules\@prisma\client\runtime\library.js:121:6315)
+    at async a (E:\backend-chh\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async GetAllUserUseCase (E:\backend-chh\.next\server\chunks\[root-of-the-server]__1b61228d._.js:496:19)
+    at async getAllUser (E:\backend-chh\.next\server\chunks\[root-of-the-server]__1b61228d._.js:871:34)
+    at async AppRouteRouteModule.do (E:\backend-chh\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:38696)
+    at async AppRouteRouteModule.handle (E:\backend-chh\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45978)
+    at async responseGenerator (E:\backend-chh\.next\server\chunks\node_modules_next_00aafe77._.js:14164:38)
+    at async AppRouteRouteModule.handleResponse (E:\backend-chh\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:187643)
+    at async handleResponse (E:\backend-chh\.next\server\chunks\node_modules_next_00aafe77._.js:14226:32)
+    at async handler (E:\backend-chh\.next\server\chunks\node_modules_next_00aafe77._.js:14278:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\backend-chh\node_modules\next\dist\server\base-server.js:1422:9)
+    at async DevServer.renderPageComponent (E:\backend-chh\node_modules\next\dist\server\base-server.js:1474:24)
+    at async DevServer.renderToResponseImpl (E:\backend-chh\node_modules\next\dist\server\base-server.js:1514:32)
+    at async DevServer.pipeImpl (E:\backend-chh\node_modules\next\dist\server\base-server.js:1025:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\backend-chh\node_modules\next\dist\server\next-server.js:393:17)
+    at async DevServer.handleRequestImpl (E:\backend-chh\node_modules\next\dist\server\base-server.js:916:17)
+    at async E:\backend-chh\node_modules\next\dist\server\dev\next-dev-server.js:399:20
+    at async Span.traceAsyncFn (E:\backend-chh\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\backend-chh\node_modules\next\dist\server\dev\next-dev-server.js:395:24)
+    at async invokeRender (E:\backend-chh\node_modules\next\dist\server\lib\router-server.js:240:21)
+    at async handleRequest (E:\backend-chh\node_modules\next\dist\server\lib\router-server.js:437:24)
+    at async requestHandlerImpl (E:\backend-chh\node_modules\next\dist\server\lib\router-server.js:485:13)
+    at async Server.requestListener (E:\backend-chh\node_modules\next\dist\server\lib\start-server.js:226:13) {
+  "error": "\nInvalid `10)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$prisma$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"default\"].user.findMany()` invocation in\nE:\\backend-chh\\.next\\server\\chunks\\[root-of-the-server]__1b61228d._.js:292:164\n\n  289 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$prisma$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i(\"[project]/lib/prisma.js [app-route] (ecmascript)\");\n  290 ;\n  291 const UserRepository = {\n→ 292     getAll: (skip = 0, take = 10)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$prisma$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__[\"default\"].user.findMany({\n            skip: 0,\n            take: 1000000,\n            orderBy: {\n              userCreateAt: \"asc\",\n              ~~~~~~~~~~~~\n          ?   userId?: SortOrder,\n          ?   userEmail?: SortOrder,\n          ?   userPassword?: SortOrder,\n          ?   userFirstname?: SortOrder,\n          ?   userLastname?: SortOrder\n            },\n            include: {\n              createdBy: {\n                select: {\n                  userFirstName: true,\n                  userLastName: true\n                }\n              },\n              updatedBy: {\n                select: {\n                  userFirstName: true,\n                  userLastName: true\n                }\n              }\n            }\n          })\n\nUnknown argument `userCreateAt`. Available options are marked with ?."
+}
