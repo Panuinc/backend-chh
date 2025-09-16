@@ -15,8 +15,8 @@ export default function DocsPage() {
   const [status, setStatus] = useState(null);
 
   const [userId, setUserId] = useState("");
-  const [newUser, setNewUser] = useState({ userEmail: "", userName: "" });
-  const [updateUser, setUpdateUser] = useState({ userEmail: "", userName: "" });
+  const [newUser, setNewUser] = useState({ userEmail: "", userFirstName: "" });
+  const [updateUser, setUpdateUser] = useState({ userEmail: "", userFirstName: "" });
 
   async function safeFetch(url, options = {}) {
     try {
@@ -81,10 +81,10 @@ export default function DocsPage() {
         />
         <input
           type="text"
-          placeholder="userName"
+          placeholder="userFirstName"
           className="border p-2 rounded w-full"
-          value={newUser.userName}
-          onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })}
+          value={newUser.userFirstName}
+          onChange={(e) => setNewUser({ ...newUser, userFirstName: e.target.value })}
         />
         <button
           onClick={() => run(api.createUser)}
@@ -129,11 +129,11 @@ export default function DocsPage() {
         />
         <input
           type="text"
-          placeholder="userName"
+          placeholder="userFirstName"
           className="border p-2 rounded w-full"
-          value={updateUser.userName}
+          value={updateUser.userFirstName}
           onChange={(e) =>
-            setUpdateUser({ ...updateUser, userName: e.target.value })
+            setUpdateUser({ ...updateUser, userFirstName: e.target.value })
           }
         />
         <button

@@ -68,16 +68,16 @@ export default function User() {
   const [userId, setUserId] = useState("");
 
   const newUser = useFormState({
-    userEmail: "",
-    userPassword: "",
-    userFirstname: "",
-    userLastname: "",
+    userFirstName: "",
+    userLastName: "",
+    userCreateBy: "",
   });
+
   const updateUser = useFormState({
-    userEmail: "",
-    userPassword: "",
-    userFirstname: "",
-    userLastname: "",
+    userFirstName: "",
+    userLastName: "",
+    userStatus: "Enable",
+    userUpdateBy: "",
   });
 
   async function safeFetch(url, options = {}) {
@@ -87,7 +87,7 @@ export default function User() {
         headers: {
           ...(options.headers || {}),
           "Content-Type": "application/json",
-          "secret-token": process.env.NEXT_PUBLIC_SECRET_TOKEN || "Develop", // ใช้ env
+          "secret-token": process.env.NEXT_PUBLIC_SECRET_TOKEN || "Develop",
         },
       });
       let data = {};
@@ -115,7 +115,7 @@ export default function User() {
         setResponse({ error: "Missing userId" });
         return;
       }
-      return safeFetch(`/api/users/${Number(userId)}`);
+      return safeFetch(`/api/users/${userId}`);
     },
     createUser: () =>
       safeFetch("/api/users", {
@@ -128,7 +128,7 @@ export default function User() {
         setResponse({ error: "Missing userId" });
         return;
       }
-      return safeFetch(`/api/users/${Number(userId)}`, {
+      return safeFetch(`/api/users/${userId}`, {
         method: "PUT",
         body: JSON.stringify(updateUser.form),
       });
@@ -148,7 +148,7 @@ export default function User() {
       label: "User Create",
       color: "success",
       key: "createUser",
-      fields: ["userEmail", "userPassword", "userFirstname", "userLastname"],
+      fields: ["userFirstName", "userLastName", "userCreateBy"],
       formState: newUser,
     },
     {
@@ -156,7 +156,7 @@ export default function User() {
       label: "User Update",
       color: "warning",
       key: "updateUser",
-      fields: ["userEmail", "userPassword", "userFirstname", "userLastname"],
+      fields: ["userFirstName", "userLastName", "userStatus", "userUpdateBy"],
       formState: updateUser,
     },
   ];

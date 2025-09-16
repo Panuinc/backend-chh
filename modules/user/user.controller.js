@@ -98,7 +98,7 @@ export async function createUser(request) {
 
     logger.info({
       action: "createUser",
-      message: `User '${user.userName}' created`,
+      message: `User '${user.userFirstName}' created`,
       createdBy: user.userCreateBy,
       ip,
       user,

@@ -18,20 +18,39 @@ export default function UIUser({
   api,
 }) {
   function renderInputs(fields, state) {
-    return fields.map((field) => (
-      <Input
-        key={field}
-        name={field}
-        type={field.toLowerCase().includes("password") ? "password" : "text"}
-        label={field}
-        labelPlacement="outside"
-        placeholder={field}
-        variant="bordered"
-        isRequired
-        value={state.form[field]}
-        onChange={state.handleChange(field)}
-      />
-    ));
+    return fields.map((field) => {
+      if (field === "userStatus") {
+        return (
+          <div key={field} className="flex flex-col gap-1 w-full">
+            <label className="text-white">{field}</label>
+            <select
+              name={field}
+              value={state.form[field]}
+              onChange={(e) => state.handleChange(field)(e)}
+              className="w-full p-2 border rounded-md text-black"
+            >
+              <option value="Enable">Enable</option>
+              <option value="Disable">Disable</option>
+            </select>
+          </div>
+        );
+      }
+
+      return (
+        <Input
+          key={field}
+          name={field}
+          type="text"
+          label={field}
+          labelPlacement="outside"
+          placeholder={field}
+          variant="bordered"
+          isRequired
+          value={state.form[field]}
+          onChange={state.handleChange(field)}
+        />
+      );
+    });
   }
 
   function renderForm(item) {

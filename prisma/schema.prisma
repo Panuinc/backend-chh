@@ -7,10 +7,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserStatus {
+  Enable
+  Disable
+}
+
 model User {
-  userId        String @id @default(cuid())
-  userEmail     String @unique
-  userPassword  String
-  userFirstname String
-  userLastname  String
+  userId        String     @id @default(cuid())
+  userFirstName String
+  userLastName  String
+  userEmail     String     @unique
+  userStatus    UserStatus @default(Enable)
+  userCreateBy  String
+  userCreateAt  DateTime   @default(now())
+  userUpdateBy  String?
+  userUpdateAt  DateTime   @updatedAt
+
+  createdBy    User?  @relation("UserCreatedBy", fields: [userCreateBy], references: [userId])
+  createdUsers User[] @relation("UserCreatedBy")
+
+  updatedBy    User?  @relation("UserUpdatedBy", fields: [userUpdateBy], references: [userId])
+  updatedUsers User[] @relation("UserUpdatedBy")
+
+  @@index([userCreateBy])
+  @@index([userUpdateBy])
 }

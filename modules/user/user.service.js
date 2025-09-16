@@ -13,8 +13,8 @@ export class UserService {
     return UserRepository.findById(userId);
   }
 
-  static getByName(userName) {
-    return UserRepository.findByName(userName);
+  static getByName(userFirstName) {
+    return UserRepository.findByName(userFirstName);
   }
 
   static create(data) {

@@ -19,7 +19,7 @@ export async function UpdateUserUseCase(data) {
 
   return UserService.update(parsed.data.userId, {
     ...parsed.data,
-    userName: parsed.data.userName.trim().toLowerCase(),
+    userFirstName: parsed.data.userFirstName.trim().toLowerCase(),
     userUpdateAt: getLocalNow(),
   });
 }

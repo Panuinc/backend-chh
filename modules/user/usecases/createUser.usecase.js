@@ -13,7 +13,7 @@ export async function CreateUserUseCase(data) {
     };
   }
 
-  const normalizedName = parsed.data.userName.trim().toLowerCase();
+  const normalizedName = parsed.data.userFirstName.trim().toLowerCase();
   const duplicate = await UserValidator.isDuplicateUserName(normalizedName);
   if (duplicate) {
     throw { status: 409, message: `User '${normalizedName}' already exists` };
@@ -21,7 +21,7 @@ export async function CreateUserUseCase(data) {
 
   return UserService.create({
     ...parsed.data,
-    userName: normalizedName,
+    userFirstName: normalizedName,
     userCreateAt: getLocalNow(),
   });
 }
