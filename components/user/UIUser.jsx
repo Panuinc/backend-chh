@@ -22,7 +22,7 @@ export default function UIUser({
       if (field === "userStatus") {
         return (
           <div key={field} className="flex flex-col gap-1 w-full">
-            <label className="text-white">{field}</label>
+            <label className="text-white capitalize">{field}</label>
             <select
               name={field}
               value={state.form[field]}

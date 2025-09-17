@@ -70,26 +70,30 @@ export default function User() {
   const newUser = useFormState({
     userFirstName: "",
     userLastName: "",
+    userEmail: "",
     userCreateBy: "",
   });
 
   const updateUser = useFormState({
     userFirstName: "",
     userLastName: "",
+    userEmail: "",
     userStatus: "Enable",
     userUpdateBy: "",
   });
 
   async function safeFetch(url, options = {}) {
     try {
-      const res = await fetch(url, {
-        ...options,
-        headers: {
-          ...(options.headers || {}),
-          "Content-Type": "application/json",
-          "secret-token": process.env.NEXT_PUBLIC_SECRET_TOKEN || "Develop",
-        },
-      });
+      const isFormData = options.body instanceof FormData;
+
+      const headers = {
+        "secret-token": process.env.NEXT_PUBLIC_SECRET_TOKEN || "Develop",
+        ...(isFormData ? {} : { "Content-Type": "application/json" }),
+        ...(options.headers || {}),
+      };
+
+      const res = await fetch(url, { ...options, headers });
+
       let data = {};
       try {
         const text = await res.text();
@@ -97,6 +101,7 @@ export default function User() {
       } catch {
         data = {};
       }
+
       setStatus(res.status);
       setResponse(
         res.ok ? data : { error: `HTTP ${res.status}`, details: data }
@@ -148,7 +153,7 @@ export default function User() {
       label: "User Create",
       color: "success",
       key: "createUser",
-      fields: ["userFirstName", "userLastName", "userCreateBy"],
+      fields: ["userFirstName", "userLastName", "userEmail", "userCreateBy"],
       formState: newUser,
     },
     {
@@ -156,7 +161,13 @@ export default function User() {
       label: "User Update",
       color: "warning",
       key: "updateUser",
-      fields: ["userFirstName", "userLastName", "userStatus", "userUpdateBy"],
+      fields: [
+        "userFirstName",
+        "userLastName",
+        "userEmail",
+        "userStatus",
+        "userUpdateBy",
+      ],
       formState: updateUser,
     },
   ];

@@ -7,8 +7,8 @@ export const UserRepository = {
       take,
       orderBy: { userCreateAt: "asc" },
       include: {
-        createdBy: { select: { userFirstName: true, userFirstName: true } },
-        updatedBy: { select: { userFirstName: true, userFirstName: true } },
+        createdBy: { select: { userFirstName: true, userLastName: true } },
+        updatedBy: { select: { userFirstName: true, userLastName: true } },
       },
     }),
 
@@ -18,14 +18,19 @@ export const UserRepository = {
     prisma.user.findUnique({
       where: { userId },
       include: {
-        createdBy: { select: { userFirstName: true, userFirstName: true } },
-        updatedBy: { select: { userFirstName: true, userFirstName: true } },
+        createdBy: { select: { userFirstName: true, userLastName: true } },
+        updatedBy: { select: { userFirstName: true, userLastName: true } },
       },
     }),
 
   findByName: (userFirstName) =>
     prisma.user.findFirst({
       where: { userFirstName: userFirstName.trim().toLowerCase() },
+    }),
+
+  findByEmail: (userEmail) =>
+    prisma.user.findUnique({
+      where: { userEmail: userEmail.trim().toLowerCase() },
     }),
 
   create: (data) => prisma.user.create({ data }),

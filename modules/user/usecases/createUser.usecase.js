@@ -13,15 +13,15 @@ export async function CreateUserUseCase(data) {
     };
   }
 
-  const normalizedName = parsed.data.userFirstName.trim().toLowerCase();
-  const duplicate = await UserValidator.isDuplicateUserName(normalizedName);
+  const normalizedEmail = parsed.data.userEmail.trim().toLowerCase();
+  const duplicate = await UserValidator.isDuplicateUserEmail(normalizedEmail);
   if (duplicate) {
-    throw { status: 409, message: `User '${normalizedName}' already exists` };
+    throw { status: 409, message: `User with email '${normalizedEmail}' already exists` };
   }
 
   return UserService.create({
     ...parsed.data,
-    userFirstName: normalizedName,
+    userEmail: normalizedEmail,
     userCreateAt: getLocalNow(),
   });
 }

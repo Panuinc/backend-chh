@@ -80,7 +80,6 @@ export async function createUser(request) {
   let ip = "";
   try {
     if (request.method !== "POST") {
-      logger.warn({ message: "Method not allowed", method: request.method });
       return NextResponse.json(
         { error: "Method Not Allowed" },
         { status: 405 }
@@ -89,34 +88,33 @@ export async function createUser(request) {
 
     ip = await validateRequest(request);
     logger.info({ message: "Incoming request", ip });
-    logger.info({ message: "Secret token verified" });
-    logger.info({ message: "Rate limit OK", ip });
 
-    logger.info({ message: "Parsing create user form" });
-    const formData = Object.fromEntries((await request.formData()).entries());
-    const user = await CreateUserUseCase(formData);
+    let data = {};
+    const contentType = request.headers.get("content-type") || "";
 
-    logger.info({
-      action: "createUser",
-      message: `User '${user.userFirstName}' created`,
-      createdBy: user.userCreateBy,
-      ip,
-      user,
-    });
+    if (contentType.includes("application/json")) {
+      data = await request.json();
+    } else if (contentType.includes("multipart/form-data")) {
+      const form = await request.formData();
+      data = Object.fromEntries(form.entries());
+
+      if (form.get("file")) {
+        data.file = form.get("file");
+      }
+    } else {
+      return NextResponse.json(
+        { error: "Unsupported Content-Type" },
+        { status: 415 }
+      );
+    }
+
+    const user = await CreateUserUseCase(data);
 
     return NextResponse.json(
       { message: "User created successfully", user },
       { status: 201 }
     );
   } catch (error) {
-    logger.error({
-      action: "createUser",
-      message: "Failed to create user",
-      error: error.message,
-      details: error.details ?? null,
-      ip,
-    });
-
     return handleErrors(error, ip, "Failed to create user");
   }
 }
@@ -125,7 +123,6 @@ export async function updateUser(request, userId) {
   let ip = "";
   try {
     if (request.method !== "PUT") {
-      logger.warn({ message: "Method not allowed", method: request.method });
       return NextResponse.json(
         { error: "Method Not Allowed" },
         { status: 405 }
@@ -134,34 +131,33 @@ export async function updateUser(request, userId) {
 
     ip = await validateRequest(request);
     logger.info({ message: "Incoming request", ip });
-    logger.info({ message: "Secret token verified" });
-    logger.info({ message: "Rate limit OK", ip });
 
-    logger.info({ message: "Parsing update user form" });
-    const formData = Object.fromEntries((await request.formData()).entries());
-    const user = await UpdateUserUseCase({ ...formData, userId });
+    let data = {};
+    const contentType = request.headers.get("content-type") || "";
 
-    logger.info({
-      action: "updateUser",
-      message: `User ID ${userId} updated`,
-      updatedBy: user.userUpdateBy,
-      ip,
-      user,
-    });
+    if (contentType.includes("application/json")) {
+      data = await request.json();
+    } else if (contentType.includes("multipart/form-data")) {
+      const form = await request.formData();
+      data = Object.fromEntries(form.entries());
+
+      if (form.get("file")) {
+        data.file = form.get("file");
+      }
+    } else {
+      return NextResponse.json(
+        { error: "Unsupported Content-Type" },
+        { status: 415 }
+      );
+    }
+
+    const user = await UpdateUserUseCase({ ...data, userId });
 
     return NextResponse.json(
       { message: "User updated successfully", user },
       { status: 200 }
     );
   } catch (error) {
-    logger.error({
-      action: "updateUser",
-      message: "Failed to update user",
-      error: error.message,
-      details: error.details ?? null,
-      ip,
-    });
-
     return handleErrors(error, ip, "Failed to update user");
   }
 }
