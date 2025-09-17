@@ -21,7 +21,7 @@ model User {
   userCreateBy  String
   userCreateAt  DateTime   @default(now())
   userUpdateBy  String?
-  userUpdateAt  DateTime   @updatedAt
+  userUpdateAt  DateTime?   @updatedAt
 
   createdBy    User?  @relation("UserCreatedBy", fields: [userCreateBy], references: [userId])
   createdUsers User[] @relation("UserCreatedBy")
