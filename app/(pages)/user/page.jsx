@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UIUser from "@/components/user/UIUser";
 
 function formatSwaggerStyle(obj) {
@@ -171,6 +171,12 @@ export default function User() {
       formState: updateUser,
     },
   ];
+
+  useEffect(() => {
+    if (userId && userId.trim() !== "") {
+      api.getUserById();
+    }
+  }, [userId]);
 
   return (
     <UIUser

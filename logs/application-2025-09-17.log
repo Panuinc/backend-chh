@@ -1,0 +1,228 @@
+2025-09-17 09:15:37 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:15:37 [info]: Secret token verified 
+2025-09-17 09:15:37 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:15:37 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:15:37 [info]: Secret token verified 
+2025-09-17 09:15:37 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:15:37 [info]: Fetching all users {
+  "action": "getAllUser",
+  "page": 1,
+  "limit": 1000000
+}
+2025-09-17 09:15:38 [info]: Users retrieved {
+  "total": 1,
+  "count": 1,
+  "page": 1,
+  "ip": "::1"
+}
+2025-09-17 09:17:38 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:17:38 [info]: Secret token verified 
+2025-09-17 09:17:38 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:17:38 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:17:38 [info]: Secret token verified 
+2025-09-17 09:17:38 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:17:38 [info]: Fetching all users {
+  "action": "getAllUser",
+  "page": 1,
+  "limit": 1000000
+}
+2025-09-17 09:17:38 [info]: Users retrieved {
+  "total": 1,
+  "count": 1,
+  "page": 1,
+  "ip": "::1"
+}
+2025-09-17 09:17:53 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:17:53 [info]: Secret token verified 
+2025-09-17 09:17:53 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:17:53 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:17:53 [info]: Secret token verified 
+2025-09-17 09:17:53 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:17:53 [info]: Fetching all users {
+  "action": "getAllUser",
+  "page": 1,
+  "limit": 1000000
+}
+2025-09-17 09:17:53 [info]: Users retrieved {
+  "total": 1,
+  "count": 1,
+  "page": 1,
+  "ip": "::1"
+}
+2025-09-17 09:19:22 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:19:22 [info]: Secret token verified 
+2025-09-17 09:19:22 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:19:22 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:19:22 [info]: Secret token verified 
+2025-09-17 09:19:22 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:19:22 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "as"
+}
+2025-09-17 09:19:22 [error]: Failed to retrieve user {
+  "error": "User not found"
+}
+2025-09-17 09:19:28 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:19:28 [info]: Secret token verified 
+2025-09-17 09:19:28 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:19:28 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:19:28 [info]: Secret token verified 
+2025-09-17 09:19:28 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:19:28 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "ckz8q12340001abcde9fghij"
+}
+2025-09-17 09:19:28 [info]: User found {
+  "userId": "ckz8q12340001abcde9fghij",
+  "ip": "::1"
+}
+2025-09-17 09:19:47 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:19:47 [info]: Secret token verified 
+2025-09-17 09:19:47 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:19:47 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:19:47 [info]: Secret token verified 
+2025-09-17 09:19:47 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:19:47 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "ckz8q12340001abcde9fghij"
+}
+2025-09-17 09:19:47 [info]: User found {
+  "userId": "ckz8q12340001abcde9fghij",
+  "ip": "::1"
+}
+2025-09-17 09:23:29 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:23:29 [info]: Secret token verified 
+2025-09-17 09:23:29 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:23:29 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:23:29 [info]: Secret token verified 
+2025-09-17 09:23:29 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:23:29 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "ckz8q12340001abcde9fghij"
+}
+2025-09-17 09:23:30 [info]: User found {
+  "userId": "ckz8q12340001abcde9fghij",
+  "ip": "::1"
+}
+2025-09-17 09:23:30 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:23:30 [info]: Secret token verified 
+2025-09-17 09:23:30 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:23:30 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:23:30 [info]: Secret token verified 
+2025-09-17 09:23:30 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:23:30 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "ckz8q12340001abcde9fghij"
+}
+2025-09-17 09:23:30 [info]: User found {
+  "userId": "ckz8q12340001abcde9fghij",
+  "ip": "::1"
+}
+2025-09-17 09:25:48 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:25:48 [info]: Secret token verified 
+2025-09-17 09:25:48 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:25:48 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:25:48 [info]: Secret token verified 
+2025-09-17 09:25:48 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:25:48 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "ckz8q12340001abcde9fghij"
+}
+2025-09-17 09:25:48 [info]: User found {
+  "userId": "ckz8q12340001abcde9fghij",
+  "ip": "::1"
+}
+2025-09-17 09:28:18 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:28:18 [info]: Secret token verified 
+2025-09-17 09:28:18 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:28:18 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-17 09:28:18 [info]: Secret token verified 
+2025-09-17 09:28:18 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-17 09:28:18 [info]: Fetching user by ID {
+  "action": "getUserById",
+  "userId": "ckz8q12340001abcde9fghij"
+}
+2025-09-17 09:28:18 [info]: User found {
+  "userId": "ckz8q12340001abcde9fghij",
+  "ip": "::1"
+}
