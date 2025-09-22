@@ -2,7 +2,6 @@
 
 import { Button, Input } from "@heroui/react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
   Sparkles,
@@ -58,7 +57,13 @@ function OrbitIcon({ Icon, color, radius, angle, duration }) {
   );
 }
 
-export default function UIAuth() {
+export default function UIAuth({
+  username,
+  password,
+  setUsername,
+  setPassword,
+  handleLogin,
+}) {
   return (
     <>
       <div className="flex flex-row items-center justify-center w-full h-full gap-2">
@@ -71,13 +76,15 @@ export default function UIAuth() {
           </div>
           <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
             <Input
-              name="Email"
-              type="email"
-              label="Email"
+              name="username"
+              type="text"
+              label="Username"
               labelPlacement="outside"
-              placeholder="xxx@xxx.com"
+              placeholder="Enter your username"
               variant="bordered"
               isRequired
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
@@ -89,16 +96,20 @@ export default function UIAuth() {
               placeholder="Enter your password"
               variant="bordered"
               isRequired
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Link
-            href="/home"
-            className="flex items-center justify-center w-full h-fit p-2 gap-2"
-          >
-            <Button color="primary" className="w-full">
+          <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
+            <Button
+              onPress={handleLogin}
+              type="submit"
+              color="primary"
+              className="w-full"
+            >
               Signin
             </Button>
-          </Link>
+          </div>
         </div>
         <div className="relative lg:flex hidden flex-col items-center justify-center w-8/12 h-full p-2 gap-2 overflow-hidden">
           <div className="absolute flex items-center justify-center w-[400px] h-[400px] border-1 border-default rounded-full" />
