@@ -8,54 +8,39 @@ import UILoading from "@/components/loading/UILoading";
 import UIAuth from "@/components/auth/UIAuth";
 
 export default function Signin() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "authenticated") {
-      if (session?.user?.forceReset) {
-        router.push("/force-password-change");
-      } else {
-        router.push("/overview");
-      }
-    }
+    if (status === "authenticated") router.push("/home");
   }, [status, session, router]);
 
   const handleLogin = async () => {
-    if (!username || !password) {
-      toast.error("Please enter both username and password.");
+    if (!email || !password) {
+      toast.error("Please enter both email and password.");
       return;
     }
-
     const res = await signIn("credentials", {
       redirect: false,
-      username,
+      email,
       password,
     });
-
-    if (res?.ok) {
-      toast.success("Login successful!");
-    } else {
-      const errMsg =
-        res?.error || "An error occurred during login. Please try again.";
-      toast.error(errMsg);
-    }
+    if (res?.ok) toast.success("Login successful!");
+    else toast.error(res?.error || "Login failed.");
   };
 
   return (
     <>
       <Toaster position="top-right" />
-
       {status === "loading" ? (
         <UILoading />
       ) : (
         <UIAuth
-          username={username}
+          email={email}
           password={password}
-          setUsername={setUsername}
+          setEmail={setEmail}
           setPassword={setPassword}
           handleLogin={handleLogin}
         />

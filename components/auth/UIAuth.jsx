@@ -29,7 +29,6 @@ const icons = [
 
 function OrbitIcon({ Icon, color, radius, angle, duration }) {
   const [coords, setCoords] = useState(null);
-
   useEffect(() => {
     const rad = (angle * Math.PI) / 180;
     setCoords({
@@ -37,9 +36,7 @@ function OrbitIcon({ Icon, color, radius, angle, duration }) {
       y: Math.round(Math.sin(rad) * radius * 800) / 1000,
     });
   }, [radius, angle]);
-
   if (!coords) return null;
-
   return (
     <motion.div
       className="absolute lg:flex hidden"
@@ -58,76 +55,71 @@ function OrbitIcon({ Icon, color, radius, angle, duration }) {
 }
 
 export default function UIAuth({
-  username,
+  email,
   password,
-  setUsername,
+  setEmail,
   setPassword,
   handleLogin,
 }) {
   return (
-    <>
-      <div className="flex flex-row items-center justify-center w-full h-full gap-2">
-        <div className="flex flex-col items-center justify-center w-full lg:w-4/12 h-full p-2 gap-2 bg-white border-r-1 border-default">
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-center text-xl font-semibold">
-            Sign in to CHH Industry API
-          </div>
-          <div className="flex items-center justify-start w-full h-fit p-2 gap-2 text-center">
-            Connect to your account to manage and monitor factory operations.
-          </div>
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
-            <Input
-              name="username"
-              type="text"
-              label="Username"
-              labelPlacement="outside"
-              placeholder="Enter your username"
-              variant="bordered"
-              isRequired
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
-            <Input
-              name="Password"
-              type="password"
-              label="Password"
-              labelPlacement="outside"
-              placeholder="Enter your password"
-              variant="bordered"
-              isRequired
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
-            <Button
-              onPress={handleLogin}
-              type="submit"
-              color="primary"
-              className="w-full"
-            >
-              Signin
-            </Button>
-          </div>
+    <div className="flex flex-row items-center justify-center w-full h-full gap-2">
+      <div className="flex flex-col items-center justify-center w-full lg:w-4/12 h-full p-2 gap-2 bg-white border-r-1 border-default">
+        <div className="flex items-center justify-center w-full h-fit p-2 gap-2 text-center text-xl font-semibold">
+          Sign in to CHH Industry API
         </div>
-        <div className="relative lg:flex hidden flex-col items-center justify-center w-8/12 h-full p-2 gap-2 overflow-hidden">
-          <div className="absolute flex items-center justify-center w-[400px] h-[400px] border-1 border-default rounded-full" />
-          <div className="absolute flex items-center justify-center w-[600px] h-[600px] border-1 border-default rounded-full" />
-          <div className="absolute flex items-center justify-center w-[800px] h-[800px] border-1 border-default rounded-full" />
-          <div className="absolute flex items-center justify-center w-[1000px] h-[1000px] border-1 border-default rounded-full" />
-          {icons.map(({ Icon, color }, i) => (
-            <OrbitIcon
-              key={i}
-              Icon={Icon}
-              color={color}
-              radius={300 + (i % 3) * 150}
-              angle={(i * 360) / icons.length}
-              duration={40 + i * 5}
-            />
-          ))}
+        <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
+          <Input
+            name="email"
+            type="email"
+            label="Email"
+            labelPlacement="outside"
+            placeholder="Enter your email"
+            variant="bordered"
+            isRequired
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
+          <Input
+            name="password"
+            type="password"
+            label="Password"
+            labelPlacement="outside"
+            placeholder="Enter your password"
+            variant="bordered"
+            isRequired
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center justify-center w-full h-fit p-2 gap-2">
+          <Button
+            onPress={handleLogin}
+            type="submit"
+            color="primary"
+            className="w-full"
+          >
+            Signin
+          </Button>
         </div>
       </div>
-    </>
+      <div className="relative lg:flex hidden flex-col items-center justify-center w-8/12 h-full p-2 gap-2 overflow-hidden">
+        <div className="absolute w-[400px] h-[400px] border-1 border-default rounded-full" />
+        <div className="absolute w-[600px] h-[600px] border-1 border-default rounded-full" />
+        <div className="absolute w-[800px] h-[800px] border-1 border-default rounded-full" />
+        <div className="absolute w-[1000px] h-[1000px] border-1 border-default rounded-full" />
+        {icons.map(({ Icon, color }, i) => (
+          <OrbitIcon
+            key={i}
+            Icon={Icon}
+            color={color}
+            radius={300 + (i % 3) * 150}
+            angle={(i * 360) / icons.length}
+            duration={40 + i * 5}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

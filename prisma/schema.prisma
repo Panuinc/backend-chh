@@ -17,11 +17,12 @@ model User {
   userFirstName String
   userLastName  String
   userEmail     String     @unique
+  userPassword  String
   userStatus    UserStatus @default(Enable)
   userCreateBy  String
   userCreateAt  DateTime   @default(now())
   userUpdateBy  String?
-  userUpdateAt  DateTime?   @updatedAt
+  userUpdateAt  DateTime?  @updatedAt
 
   createdBy    User?  @relation("UserCreatedBy", fields: [userCreateBy], references: [userId])
   createdUsers User[] @relation("UserCreatedBy")
@@ -29,6 +30,22 @@ model User {
   updatedBy    User?  @relation("UserUpdatedBy", fields: [userUpdateBy], references: [userId])
   updatedUsers User[] @relation("UserUpdatedBy")
 
+  userLogs UserLog[] @relation("UserToUserLogs")
+
   @@index([userCreateBy])
   @@index([userUpdateBy])
+}
+
+model UserLog {
+  userLogId        String   @id @default(cuid())
+  userLogUserId    String
+  userLogIpAddress String
+  userLogUserAgent String
+  userLogSuccess   Boolean
+  userLogMessage   String
+  userLogLoginAt   DateTime
+
+  user User? @relation("UserToUserLogs", fields: [userLogUserId], references: [userId])
+
+  @@index([userLogUserId])
 }
