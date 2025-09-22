@@ -23,3 +23,28 @@
   "page": 1,
   "ip": "::1"
 }
+2025-09-22 11:08:17 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-22 11:08:17 [info]: Secret token verified 
+2025-09-22 11:08:17 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-22 11:08:17 [info]: Incoming request {
+  "ip": "::1"
+}
+2025-09-22 11:08:17 [info]: Secret token verified 
+2025-09-22 11:08:17 [info]: Rate limit OK {
+  "ip": "::1"
+}
+2025-09-22 11:08:17 [info]: Fetching all users {
+  "action": "getAllUser",
+  "page": 1,
+  "limit": 1000000
+}
+2025-09-22 11:08:17 [info]: Users retrieved {
+  "total": 1,
+  "count": 1,
+  "page": 1,
+  "ip": "::1"
+}

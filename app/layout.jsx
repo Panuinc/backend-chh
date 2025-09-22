@@ -1,34 +1,25 @@
-import { Geist, Geist_Mono } from "next/font/google"
-import "@/style/globals.css"
-import { Providers } from "./providers"
-import { SessionProviders } from "./sessionProvider"
-import { Toaster } from "react-hot-toast"
-import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
-import { authOptions } from "@/lib/authOptions"
+import { Geist, Geist_Mono } from "next/font/google";
+import "@/style/globals.css";
+import { Providers } from "./providers";
+import { SessionProviders } from "./sessionProvider";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-})
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-})
+});
 
 export const metadata = {
   title: "Backend CHH",
   description: "All Backend For CHH",
-}
+};
 
-export default async function RootLayout({ children }) {
-  const session = await getServerSession(authOptions)
-
-  if (session) {
-    redirect("/home")
-  }
-
+export default function RootLayout({ children }) {
   return (
     <SessionProviders>
       <html lang="en">
@@ -47,5 +38,5 @@ export default async function RootLayout({ children }) {
         </body>
       </html>
     </SessionProviders>
-  )
+  );
 }
